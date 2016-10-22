@@ -4,29 +4,29 @@ var Cylon = require("cylon");
 
 Cylon.robot({
 	connections: {
-		leap: { adaptor: "leapmotion" },
-		arduino: { adaptor: "firmata", port: "/dev/cu.usbmodem1411" }
+		leap: { adaptor: "leapmotion"},
+		arduino: { adaptor: "firmata", port: "/dev/cu.usbmodem1411"}
 	},
 	devices: {
-		led: { driver: "led", pin: 13, connection: "arduino" },
+		led: { driver: 'led', pin: 3, connection: "arduino"},
 		leapmotion: {driver: "leapmotion", connection: "leap"}
 	},
 	work: function(my) {
-
-		my.leapmotion.on('frame', function(frame) {
-			console.log(frame.toString());
-		});
-
+		var brightness = 0, delta = 5;
 		my.leapmotion.on('hand', function(hand) {
-			console.log(hand.toString());
-		});
-
-		my.leapmotion.on("frame", function(frame) {
-			if (frame.hands.length > 0) {
-				my.led.turnOn();
+			var velocity = hand.palmVelocity[2];
+			if (velocity > 0) {
+				if (brightness < 255) {
+					brightness += delta;
+				}
+				console.log("Z axis: " + velocity + ", brightening");
 			} else {
-				my.led.turnOff();
+				if (brightness > 0) {
+					brightness -= delta;
+				}
+				console.log("Z axis: " + velocity + ", dimming");
 			}
+			my.led.brightness(brightness);
 		});
 	}
 }).start();
