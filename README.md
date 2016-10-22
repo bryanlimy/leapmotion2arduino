@@ -1,2 +1,2 @@
-# leapmotion-arduino-connection
-Simple connection between Leap Motion Controller with Arduino
+# Leap Motion to Arduino communication
+### Simple communication between the Leap Motion Controller and Arduino
