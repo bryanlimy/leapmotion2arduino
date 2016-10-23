@@ -12,21 +12,25 @@ Cylon.robot({
 		leapmotion: {driver: "leapmotion", connection: "leap"}
 	},
 	work: function(my) {
-		var brightness = 0, delta = 5;
+		var brightness = 0, delta = 2;
+
 		my.leapmotion.on('hand', function(hand) {
-			var velocity = hand.palmVelocity[2];
-			if (velocity > 0) {
-				if (brightness < 255) {
-					brightness += delta;
+
+			var velocity = hand.palmVelocity[1];
+			if (Math.abs(velocity) > 20) {
+				if (velocity > 0) {
+					if (brightness < 255) {
+						brightness += delta;
+					}
+					console.log("Z axis: " + velocity + ", brightening");
+				} else {
+					if (brightness > 0) {
+						brightness -= delta;
+					}
+					console.log("Z axis: " + velocity + ", dimming");
 				}
-				console.log("Z axis: " + velocity + ", brightening");
-			} else {
-				if (brightness > 0) {
-					brightness -= delta;
-				}
-				console.log("Z axis: " + velocity + ", dimming");
+				my.led.brightness(brightness);
 			}
-			my.led.brightness(brightness);
 		});
 	}
 }).start();
