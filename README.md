@@ -1,7 +1,8 @@
 # Leap Motion to Arduino communication
 ### Simple communication between the Leap Motion Controller and Arduino via Cylon
 
-LED get brightened or dimmed as your hand raise or fall
+4 LEDs represents 4 directions, forward, backward, left and right. LEDs light up depends on your palm gesture.
+[![Leap Motion & Arduino gesture](https://i.ytimg.com/vi/vXvvcjSzRsA/hqdefault.jpg)](https://www.youtube.com/watch?v=vXvvcjSzRsA "Leap Motion & Arduino gesture")
 
 ### Required Hardware
 - [Leap Motion Controller](https://www.leapmotion.com/)
